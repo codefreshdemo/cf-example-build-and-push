@@ -2,17 +2,21 @@ version: '1.0'
 
 steps:
 
-  build_prj:
+  build_image:
+    title: Building Image
     type: build
-    description: UC - build step
-    image_name: ncodefresh/yaml-example-build-push
+    #Important: rename this image to to a valid repository in your registry. For example: myUserName/vote
+    image_name: codefreshdemo/example-build-push
+    #Dockerfile location should be relative to the working directory
     dockerfile: Dockerfile
-    tag: ${{CF_BRANCH}}
 
-  push_to_docker_registry:
+  push_to_registry:
+    title: Pushing to Docker Registry
     type: push
-    candidate: ${{build_prj}}
-    tag: ${{CF_BRANCH}}
-    credentials:
-      username: ${{username}}
-      password: ${{password}}
+
+    #A candidate is the image that we want to push to registry
+    candidate: '${{build_image}}'
+
+    # You can push the image with whatever tag you want. In our example we use CF_BRANCH, which is a variable in
+    # the build process, accessible throughout the entire flow.
+    tag: '${{CF_BRANCH}}'
