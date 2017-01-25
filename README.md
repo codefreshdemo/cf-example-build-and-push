@@ -1,1 +1,3 @@
 # cf-example-build-and-push
+
+[![Codefresh build status]( https://g.codefresh.io/api/badges/build?repoOwner=codefreshdemo&repoName=cf-example-build-and-push&branch=master&pipelineName=cf-example-build-and-push&accountName=nikolai&type=cf-1)]( https://g.codefresh.io/repositories/codefreshdemo/cf-example-build-and-push/builds?filter=trigger:build;branch:master;service:5888a624670efd01009969df~cf-example-build-and-push)
