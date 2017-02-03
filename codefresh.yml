@@ -6,7 +6,7 @@ steps:
     title: Building Image
     type: build
     #Important: rename this image to to a valid repository in your registry. For example: myUserName/vote
-    image_name: ncodefresh/example-build-push
+    image_name: codefresh/example-build-push
     #Dockerfile location should be relative to the working directory
     dockerfile: Dockerfile
 

@@ -1,0 +1,17 @@
+version: '1.0'
+steps:
+  build_step:
+    title: "Building image..."
+    type: build
+    image_name: codefresh/example-image-aws-ecr
+
+  push_to_aws_ecr:
+    type: push
+    description: Free text description
+    candidate: ${{build_step}}
+    tag: ${{CF_BRANCH}}
+    provider: 'ecr'
+    registry: ${{AWS_REGISTRY}}
+    accessKeyId: ${{AWS_ACCESS_KEY}}
+    secretAccessKey: ${{AWS_SECRET_KEY}}
+    region: ${{AWS_REGION}}
