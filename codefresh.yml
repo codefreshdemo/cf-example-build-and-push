@@ -1,22 +1,29 @@
 version: '1.0'
-
+stages:
+- checkout
+- build
+- push
 steps:
-
-  build_image:
-    title: Building Image
+  main_clone:
+    title: Cloning main repository...
+    type: git-clone
+    stage: checkout
+    repo: 'codefreshdemo/cf-example-build-and-push'
+    revision: 'master'
+    git: github
+  build_my_app:
+    title: Building Node.Js Docker Image
     type: build
-    #Important: rename this image to to a valid repository in your registry. For example: myUserName/vote
-    image_name: codefresh/example-build-push
-    #Dockerfile location should be relative to the working directory
+    stage: build
+    image_name: my-node-js-app
+    working_directory: '.'
+    tag: 'master'
     dockerfile: Dockerfile
-
-  push_to_registry:
-    title: Pushing to Docker Registry
+  push_to_my_registry:
+    stage: 'push'
     type: push
-
-    #A candidate is the image that we want to push to registry
-    candidate: '${{build_image}}'
-
-    # You can push the image with whatever tag you want. In our example we use CF_BRANCH, which is a variable in
-    # the build process, accessible throughout the entire flow.
-    tag: '${{CF_BRANCH}}'
+    title: Pushing to a registry
+    candidate: ${{build_my_app}}
+    tag: 'v1.0.0'
+    registry: dockerhub
+    image_name: kkapelon/my-node-js-app
